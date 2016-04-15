@@ -48,7 +48,7 @@ public class MyPart{
 	        		playerArray[i].setName(playerName);
 	        		playerArray[i].setWins(delimLine.nextInt());
 	        		playerArray[i].setLosses(delimLine.nextInt());
-	        		playerArray[i].setPoints(delimLine.nextInt()); //This is for testing the scoreboard
+	        		playerArray[i].setPoints(0); //This is for testing the scoreboard
 	        		nameFound = true;
 	    	        System.out.println("Added returning player " + playerArray[i].getName() + ", with " + playerArray[i].getWins() + " wins/" + playerArray[i].getLosses() + " losses.");
 	        	}
@@ -76,10 +76,9 @@ public class MyPart{
 
 		// Create linked list to hold the leader board of all players
 		LinkedList playerList = new LinkedList();
-		LLReadBuff.reset();
 		while((lineLL = LLReadBuff.readLine()) != null){
 				Scanner LLDelim = new Scanner(lineLL).useDelimiter("\\t");
-+				Player tempInsert = new Player();
+				Player tempInsert = new Player();
         		tempInsert.setName((String)LLDelim.next());
         		tempInsert.setWins(LLDelim.nextInt());
         		tempInsert.setLosses(LLDelim.nextInt());
@@ -88,6 +87,6 @@ public class MyPart{
 
 		//Test leaderboard
 		Leaderboard board = new Leaderboard();
-		board.generate(playerArray,playerNum);
+		board.generate(playerList.root);
 	}
 }
