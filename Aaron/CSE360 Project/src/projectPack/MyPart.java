@@ -10,15 +10,15 @@ public class MyPart{
 		if (!playerData.exists()){
 			playerData.createNewFile();
 		}
-		
+
 		// Create a Scanner object and prompt user for the amount of players
 		Scanner input = new Scanner(System.in);
 		System.out.println("How many players will play?");
 		int playerNum = input.nextInt();
-		
+
 		// Create the array of players based on the input size
 		Player[] playerArray = new Player[playerNum];
-		
+
 		// Loop through amount of players prompting the user for the player names
 		// if a name is found in the text file, load that name and wins and losses to a player
 		String playerName;
@@ -26,25 +26,25 @@ public class MyPart{
 			// Prompt for a name
 			System.out.println("Player " + (i+1) + ": Enter Name");
 			playerName = input.next();
-			
+
 			// new file reader object to read from playerdata.txt
 			FileReader readData = new FileReader(playerData);
 			BufferedReader buffer = new BufferedReader(readData);
 			String line = null;
 			boolean nameFound = false;
-			
+
 			// loop through the length of the text file to search for each players name
 	        while((line = buffer.readLine()) != null){
 	        	Scanner delimLine = new Scanner(line).useDelimiter("\\t");
 	        	String dataName = delimLine.next();
-	        	
+
 	        	// if the name is found in the text file, copy the name, wins and losses to the player object
 	        	if (dataName.equals(playerName)){
 	        		playerArray[i] = new Player();
 	        		playerArray[i].setName(playerName);
 	        		playerArray[i].setWins(delimLine.nextInt());
 	        		playerArray[i].setLosses(delimLine.nextInt());
-	        		playerArray[i].setPoints(0);
+	        		playerArray[i].setPoints(delimLine.nextInt());
 	        		nameFound = true;
 	    	        System.out.println("Added returning player " + playerArray[i].getName() + ", with " + playerArray[i].getWins() + " wins/" + playerArray[i].getLosses() + " losses.");
 	        	}
@@ -57,7 +57,17 @@ public class MyPart{
         		playerArray[i].setPoints(0);
     	        System.out.println("Added new player " + playerArray[i].getName() + ", with " + playerArray[i].getWins() + " wins/" + playerArray[i].getLosses() + " losses.");
 	        }
-	        
+
+		}
+
+		//Test leaderboard
+		Leaderboard board = new Leaderboard();
+		board.generate(playerArray,playerNum);
+
+		//Test if playerArray has been affected by leaderboard.generate (it shouldn't have)
+		System.out.println("----");
+		for (int i = 0; i < playerNum; i++) {
+			System.out.println(playerArray[i].getName());
 		}
 	}
 }
