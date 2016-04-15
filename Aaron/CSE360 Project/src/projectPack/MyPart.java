@@ -75,37 +75,19 @@ public class MyPart{
 		String lineLL = new String();
 
 		// Create linked list to hold the leader board of all players
-		Player root = new Player();
-		Scanner LLDelim = new Scanner(lineLL).useDelimiter("\\t");
+		LinkedList playerList = new LinkedList();
 		LLReadBuff.reset();
 		while((lineLL = LLReadBuff.readLine()) != null){
-        		Player tempInsert = new Player();
+				Scanner LLDelim = new Scanner(lineLL).useDelimiter("\\t");
++				Player tempInsert = new Player();
         		tempInsert.setName((String)LLDelim.next());
         		tempInsert.setWins(LLDelim.nextInt());
         		tempInsert.setLosses(LLDelim.nextInt());
-        		LLInsert(root, tempInsert);
+        		playerList.LLInsert(tempInsert);
         }
 
 		//Test leaderboard
 		Leaderboard board = new Leaderboard();
-		board.generate(root);
-	}
-
-	static void LLInsert(Player tempRoot, Player insertNode)
-	{
-		Player tempNode;
-		//XXX: Shouldn't this be getPoints?
-        if (tempRoot == null || tempRoot.getWins() >= insertNode.getWins()){
-        	insertNode.next = tempRoot;
-        	tempRoot = insertNode;
-        }
-        else {
-        	tempNode = tempRoot;
-        	while (tempNode.next != null && tempNode.next.getWins() < insertNode.getWins()){
-        		tempNode = tempNode.next;
-        	}
-        	insertNode.next = tempNode.next;
-        	tempNode.next = insertNode;
-        }
+		board.generate(playerArray,playerNum);
 	}
 }
