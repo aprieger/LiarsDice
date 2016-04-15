@@ -10,7 +10,7 @@ public class Leaderboard {
 	}
 
 	/**
-	 * Generates leaderboard data for the game.
+	 * Generates leaderboard data for the game. This takes a standard array of players.
 	 * Currently only outputs debug output.
 	 *
 	 * @param The game's array of players.
@@ -38,6 +38,30 @@ public class Leaderboard {
 				p.getName() + "\t" + p.getWins() + "/" +
 				p.getLosses() + "\t" + p.getPoints()
 			);
+		}
+	}
+
+	/**
+	 * Generates leaderboard data for the game. This takes in a presorted linked list.
+	 * Currently only outputs debug output.
+	 *
+	 * @param The game's linked list of players
+	 */
+	public void generate(Player listRoot) {
+		Player node = listRoot;
+
+		//XXX: Remove this line, it just makes the debug output more readable
+		System.out.println("LEADERBOARD\n===========");
+
+		System.out.println("Name\tW/L\tPoints\n");
+
+		while(node != null) {
+			//TODO: Implement GUI functionality instead of console output.
+			System.out.println(
+				node.getName() + "\t" + node.getWins() + "/" +
+				node.getLosses() + "\t" + node.getPoints()
+			);
+			node = node.next;
 		}
 	}
 }
