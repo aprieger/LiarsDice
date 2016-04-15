@@ -1,6 +1,7 @@
 //Leaderboard Object Source
 //Nathaniel Martin
-package projectPack;
+package Group4Package;
+
 import java.util.Arrays;
 import java.util.Collections;
 

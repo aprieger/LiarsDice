@@ -1,5 +1,0 @@
-Aaron	2	3	1
-Joe	4	1	2
-Nathaniel	6	10	3
-Obama	1	2	4
-Bob	0	0
