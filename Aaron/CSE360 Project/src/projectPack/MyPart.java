@@ -88,7 +88,7 @@ public class MyPart{
 
 		//Test leaderboard
 		Leaderboard board = new Leaderboard();
-		board.generate(playerArray,playerNum);
+		board.generate(root);
 	}
 
 	static void LLInsert(Player tempRoot, Player insertNode)
