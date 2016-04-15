@@ -74,31 +74,15 @@ public class MyPart{
 		String lineLL = null;
 		
 		// Create linked list to hold the leader board of all players
-		Player root = new Player();
-		Scanner LLDelim = new Scanner(lineLL).useDelimiter("\\t");
+		LinkedList playerList = new LinkedList();
 		while((lineLL = LLReadBuff.readLine()) != null){
-        		Player tempInsert = new Player();
+				Scanner LLDelim = new Scanner(lineLL).useDelimiter("\\t");	
+				Player tempInsert = new Player();
         		tempInsert.setName(LLDelim.next());
         		tempInsert.setWins(LLDelim.nextInt());
         		tempInsert.setLosses(LLDelim.nextInt());
-        		LLInsert(root, tempInsert);
+        		playerList.LLInsert(tempInsert);
         	}
-	}
-	
-	static void LLInsert(Player tempRoot, Player insertNode)
-	{
-		Player tempNode;
-        if (tempRoot == null || tempRoot.getWins() >= insertNode.getWins()){
-        	insertNode.next = tempRoot;
-        	tempRoot = insertNode;
-        }
-        else {
-        	tempNode = tempRoot;
-        	while (tempNode.next != null && tempNode.next.getWins() < insertNode.getWins()){
-        		tempNode = tempNode.next;
-        	}
-        	insertNode.next = tempNode.next;
-        	tempNode.next = insertNode;
-        }
+		playerList.LLPrint();
 	}
 }
