@@ -11,6 +11,10 @@ public class MyPart{
 			playerData.createNewFile();
 		}
 		
+		FileWriter writeData = new FileWriter("playerdata.txt", true);
+	    BufferedWriter writeBuffer = new BufferedWriter(writeData);
+	    PrintWriter saveFile = new PrintWriter(writeBuffer);
+		
 		// Create a Scanner object and prompt user for the amount of players
 		Scanner input = new Scanner(System.in);
 		System.out.println("How many players will play?");
@@ -29,12 +33,12 @@ public class MyPart{
 			
 			// new file reader object to read from playerdata.txt
 			FileReader readData = new FileReader(playerData);
-			BufferedReader buffer = new BufferedReader(readData);
+			BufferedReader readBuffer = new BufferedReader(readData);
 			String line = null;
 			boolean nameFound = false;
 			
 			// loop through the length of the text file to search for each players name
-	        while((line = buffer.readLine()) != null){
+	        while((line = readBuffer.readLine()) != null){
 	        	Scanner delimLine = new Scanner(line).useDelimiter("\\t");
 	        	String dataName = delimLine.next();
 	        	
@@ -48,7 +52,9 @@ public class MyPart{
 	        		nameFound = true;
 	    	        System.out.println("Added returning player " + playerArray[i].getName() + ", with " + playerArray[i].getWins() + " wins/" + playerArray[i].getLosses() + " losses.");
 	        	}
+	        	delimLine.close();
 	        }
+	        // if the name is not found in the text file, create empty entry with typed name
 	        if (nameFound == false){
 	        	playerArray[i] = new Player();
 	        	playerArray[i].setName(playerName);
@@ -56,8 +62,43 @@ public class MyPart{
         		playerArray[i].setLosses(0);
         		playerArray[i].setPoints(0);
     	        System.out.println("Added new player " + playerArray[i].getName() + ", with " + playerArray[i].getWins() + " wins/" + playerArray[i].getLosses() + " losses.");
+    	        saveFile.println(playerArray[i].getName()+"\t"+playerArray[i].getWins()+"\t"+playerArray[i].getLosses());
 	        }
-	        
+	        readBuffer.close();
 		}
+		saveFile.close();
+		input.close();
+		
+		FileReader LLRead = new FileReader(playerData);
+		BufferedReader LLReadBuff = new BufferedReader(LLRead);
+		String lineLL = null;
+		
+		// Create linked list to hold the leader board of all players
+		Player root = new Player();
+		Scanner LLDelim = new Scanner(lineLL).useDelimiter("\\t");
+		while((lineLL = LLReadBuff.readLine()) != null){
+        		Player tempInsert = new Player();
+        		tempInsert.setName(LLDelim.next());
+        		tempInsert.setWins(LLDelim.nextInt());
+        		tempInsert.setLosses(LLDelim.nextInt());
+        		LLInsert(root, tempInsert);
+        	}
+	}
+	
+	static void LLInsert(Player tempRoot, Player insertNode)
+	{
+		Player tempNode;
+        if (tempRoot == null || tempRoot.getWins() >= insertNode.getWins()){
+        	insertNode.next = tempRoot;
+        	tempRoot = insertNode;
+        }
+        else {
+        	tempNode = tempRoot;
+        	while (tempNode.next != null && tempNode.next.getWins() < insertNode.getWins()){
+        		tempNode = tempNode.next;
+        	}
+        	insertNode.next = tempNode.next;
+        	tempNode.next = insertNode;
+        }
 	}
 }
