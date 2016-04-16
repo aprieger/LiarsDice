@@ -1,4 +1,4 @@
-package projectPack;
+package Group4Package;
 
 public class Player implements Comparable<Player>
 {
@@ -46,7 +46,7 @@ public class Player implements Comparable<Player>
 	/**
 	 * Standard compareTo function.
 	 * Allows builtin sorting algorithms to sort an array of players.
-	 * 
+	 *
 	 *
 	 * @param The other player object this object is being compared to.
 	 * @return A standard compareTo value based on a player's total points.

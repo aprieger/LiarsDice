@@ -1,8 +1,8 @@
-package projectPack;
+package Group4Package;
 
 public class LinkedList {
 	Player root;
-	
+
 	void LLInsert(Player insertNode)
 	{
 		Player tempNode;
@@ -19,7 +19,7 @@ public class LinkedList {
         	tempNode.next = insertNode;
         }
 	}
-	
+
 	void LLPrint()
 	{
 		Player tempNode = root;
