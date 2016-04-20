@@ -88,5 +88,11 @@ public class fileIO{
 		//Test leaderboard
 		Leaderboard board = new Leaderboard();
 		board.generate(playerList.root);
+
+		//Test dice
+		Dice dice = new Dice(2);
+		System.out.println(dice.getPlayerDice(1)[0]);
+		dice.rollDice();
+		System.out.println(dice.getPlayerDice(1)[0]);
 	}
 }
