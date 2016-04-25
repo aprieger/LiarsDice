@@ -7,7 +7,8 @@ import javax.imageio.*;
 
 public class DiceGraphic {
 	
-	private BufferedImage img = null;
+	private BufferedImage dice = null;
+	private ImageFileReader imageFile = new ImageFileReader();
 	
 	/**
 	 * Constructs the DiceGraphic without a picture allocated.
@@ -16,42 +17,37 @@ public class DiceGraphic {
 	
 	//Currently uses relative directory pathing
 	
-	/**The constructor for the DiceGraphic that takes in a filePath to immediately load a 
-	 * picture, works with  GIF, PNG, JPEG, BMP, WBMP
+	/**The constructor for the DiceGraphic that takes in a dice number to be concatenated with a filePath
+	 * to immediately load a picture, works with  GIF, PNG, JPEG, BMP, WBMP
 	 * 
-	 * @param filePath The path to the image file, relative from the working directory
+	 * @param diceFace The number to be concatenated with the
+	 * path to the image file, relative from the working directory
 	 * 
 	 * @author Brett Caley
 	 */
-	public DiceGraphic(String filePath){
-		try{
-			img = ImageIO.read(new File(filePath));
-		} catch (IOException e){
-			System.out.println("File not found.");
-		}
+	public DiceGraphic(int diceFace){
+		imageFile.setImage("./src/dice"+diceFace+".jpg");
+		dice = imageFile.getImage();
 	}
 	
 	/**Sets the DiceGraphic to be a different picture
 	 * 
-	 * @param filePath File path of the picture to be used,
-	 * 		  relative from the working directory.
+	 * @param diceFace Integer input that is concatenated into a filepath
+	 * to be read from as "./src/dice1.jpg" for instance
 	 * 
 	 * @author Brett Caley
 	 */
-	public void setDiceGraphic(String filePath){
-		try{
-			img = ImageIO.read(new File(filePath));
-		} catch (IOException e){
-			System.out.println("File not found.");
-		}
+	public void setDiceGraphic(int diceFace){
+		imageFile.setImage("./src/dice"+diceFace+".jpg");
+		dice = imageFile.getImage();
 	}
 	
 	/** Return of the BufferedImage to be used in Graphics and JFrames etc.
 	 * 
-	 * @return Returns the image held in BufferedImage.
+	 * @return Returns the image held in BufferedImage dice.
 	 */
 	public Image getDiceGraphic(){
-		return img;
+		return dice;
 	}
 	
 	
