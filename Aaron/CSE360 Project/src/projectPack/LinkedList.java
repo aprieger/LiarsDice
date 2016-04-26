@@ -6,6 +6,7 @@ package projectPack;
  */
 public class LinkedList {
 	Player root;
+	int nodeCount;
 	
 	/** LLPInsert(): inserts a node into a sorted linked list
 	 * @param insertNode: node to be inserted into linked list
@@ -26,32 +27,35 @@ public class LinkedList {
         	insertNode.next = tempNode.next;
         	tempNode.next = insertNode;
         }
+        nodeCount = nodeCount + 1;
 	}
 	
 	/** LLPrint(): prints out the linked list for the leaderboard
 	 * @return void
 	 */
-	void LLPrint()
+	String LLPrint()
 	{
 		Player tempNode = root;
+		String output="";
 		while (tempNode != null)
 		{
-			System.out.println(tempNode.getName() + ": " + tempNode.getWins() + " wins/" + tempNode.getLosses() + " losses.");
+			output = output + tempNode.getName() + ": " + tempNode.getWins() + " wins/" + tempNode.getLosses() + " losses.\n";
 			tempNode=tempNode.next;
 		}
+		return output;
 	}
-	/** LLSort(): returns a sorted linked list based on the number of wins
-	 * @return tempList: sorted list
-	 */
-	LinkedList LLSort()
+	
+	void LLSort()
 	{
-		Player temp = root;
-		LinkedList tempList = new LinkedList();
-		while (temp != null)
-		{
-			tempList.LLInsert(temp);
-			temp=temp.next;
-		}
-		return tempList;
+		Player front = root;
+		Player test = root;
+		Player temp;
+		for (int i = 0; i < nodeCount; i++)
+			while (test.next != null)
+			{
+				if (test.getWins() > front.getWins())
+					temp = test;
+				test = test.next;
+			}
 	}
 }

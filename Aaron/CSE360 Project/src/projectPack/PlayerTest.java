@@ -8,47 +8,36 @@ public class PlayerTest {
 
 	@Test
 	public void testPlayer() {
-		fail("Not yet implemented");
+		Player testPlayer = new Player();
+		assertNotNull(testPlayer);
 	}
 
 	@Test
-	public void testSetName() {
-		fail("Not yet implemented");
+	public void testSetNameAndGetName() {
+		Player testPlayer = new Player();
+		testPlayer.setName("test");
+		assertEquals("test", testPlayer.getName());
 	}
 
 	@Test
-	public void testGetName() {
-		fail("Not yet implemented");
+	public void testSetWinsAndGetWins() {
+		Player testPlayer = new Player();
+		testPlayer.setWins(5);
+		assertEquals(5, testPlayer.getWins());
 	}
 
 	@Test
-	public void testSetWins() {
-		fail("Not yet implemented");
+	public void testSetLossesAndGetLosses() {
+		Player testPlayer = new Player();
+		testPlayer.setLosses(3);
+		assertEquals(3, testPlayer.getLosses());
 	}
 
 	@Test
-	public void testGetWins() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetLosses() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetLosses() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetPoints() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPoints() {
-		fail("Not yet implemented");
+	public void testSetPointsAndGetPoints() {
+		Player testPlayer = new Player();
+		testPlayer.setPoints(7);
+		assertEquals(7, testPlayer.getPoints());
 	}
 
 }
