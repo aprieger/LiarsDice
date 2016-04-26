@@ -53,7 +53,7 @@ public class LinkedList {
 		for (int i = 0; i < nodeCount; i++)
 			while (test.next != null)
 			{
-				if (test.getWins() > front.getWins())
+				if (test.getPoints() > front.getPoints())
 					temp = test;
 				test = test.next;
 			}
