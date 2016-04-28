@@ -2,9 +2,34 @@ package Group4Package;
 //Aaron Prieger
 import java.util.Scanner;
 import java.io.*;
+import java.util.Random;
 
 public class fileIO{
 	public static void main(String []args) throws IOException{
+		//This is AIBrain testing code, uncomment to test it out.
+		/*
+		boolean potato = true;
+		while(potato) {
+			AIBrain n = new AIBrain();
+			AIDecision d;
+			Scanner inputy = new Scanner(System.in);
+			int face = inputy.nextInt();
+			int quantity = inputy.nextInt();
+			Random rand = new Random();
+			int[] inventory = new int[]{rand.nextInt(6)+1,rand.nextInt(6)+1,rand.nextInt(6)+1,rand.nextInt(6)+1,rand.nextInt(6)+1};
+			d = n.React(face,quantity,inventory,10);
+			if(d.call == false) {
+				System.out.println("Liar!");
+			}
+			else {
+				System.out.println("Challenge accepted... I'm betting on "+d.dice_num+" "+d.dice_face+"'s!");
+			}
+			System.out.println("\nMy turn...\n");
+			d = n.Start(inventory,10);
+			System.out.println("Alright, I'm betting on "+d.dice_num+" "+d.dice_face+"'s!");
+		}
+		*/
+
 		// Open the file playerdata.txt, if the file doesn't exist, create a new one
 		File playerData = new File("playerdata.txt");
 		if (!playerData.exists()){
