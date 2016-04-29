@@ -11,8 +11,9 @@ import java.util.Random;
 public class Dice {
 	private int[] dice;
 	private int turn;
+	//need turn counter to make it so that winner doesn't go first
 	private int player;
-	private int opponent;
+	private int opponent; //output this to cpu's number of dice on GUI
 
 	public static final int MAX_DICE = 5;
 

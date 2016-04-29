@@ -26,18 +26,46 @@ import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.CardLayout;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 
 /**
- * Title: GameFrame 
- * Description: Java Client for the game. Updates with information
- * and serves as user interface.
+ * Title: GameFrame
+ * 
  * @author Armaan Amazan
+ * 
+ *         Description: Java Client for the game. Updates with information and
+ *         serves as user interface.
  *
  */
 public class ClientFrame extends JFrame {
 	private JTextField textField;
 
+	/**
+	 * Launches the application. TODO make I/O be the first thing that happens
+	 * after client runs, then you can manipulate the player, dice and game
+	 * objects as you like
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ClientFrame frame = new ClientFrame();
+					frame.setVisible(true);
+					frame.setSize(500, 400);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	// TODO Also incredibly redundant
+
+	/**
+	 * Client constructor.
+	 */
 	public ClientFrame() {
+		setTitle("Liar's Dice -- Group 4, CSE360");
 		getContentPane().setLayout(new CardLayout(0, 0));
 
 		JPanel mainMenu = new JPanel(); // Main menu panel
@@ -68,6 +96,12 @@ public class ClientFrame extends JFrame {
 		mainMenu.add(label_1, gbc_label_1);
 
 		JButton button = new JButton("New Game");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO move to playerSelect
+			}
+		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.insets = new Insets(0, 0, 5, 5);
 		gbc_button.gridx = 1;
@@ -75,20 +109,39 @@ public class ClientFrame extends JFrame {
 		mainMenu.add(button, gbc_button);
 
 		JButton button_1 = new JButton("Leaderboards");
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO move to leaderboards panel
+			}
+		});
 		GridBagConstraints gbc_button_1 = new GridBagConstraints();
 		gbc_button_1.insets = new Insets(0, 0, 5, 5);
 		gbc_button_1.gridx = 1;
 		gbc_button_1.gridy = 4;
 		mainMenu.add(button_1, gbc_button_1);
 
-		JButton button_2 = new JButton("Options");
-		GridBagConstraints gbc_button_2 = new GridBagConstraints();
-		gbc_button_2.insets = new Insets(0, 0, 5, 5);
-		gbc_button_2.gridx = 1;
-		gbc_button_2.gridy = 5;
-		mainMenu.add(button_2, gbc_button_2);
+		JButton btnCredits = new JButton("Credits");
+		btnCredits.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO show credits panel
+			}
+		});
+		GridBagConstraints gbc_btnCredits = new GridBagConstraints();
+		gbc_btnCredits.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCredits.gridx = 1;
+		gbc_btnCredits.gridy = 5;
+		mainMenu.add(btnCredits, gbc_btnCredits);
 
 		JButton button_3 = new JButton("Quit");
+		button_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO save file before exit
+				System.exit(0);
+			}
+		});
 		GridBagConstraints gbc_button_3 = new GridBagConstraints();
 		gbc_button_3.insets = new Insets(0, 0, 0, 5);
 		gbc_button_3.gridx = 1;
@@ -108,7 +161,6 @@ public class ClientFrame extends JFrame {
 
 		JLabel lblSelectYourProfile = new JLabel("Select your profile:");
 		GridBagConstraints gbc_lblSelectYourProfile = new GridBagConstraints();
-		gbc_lblSelectYourProfile.anchor = GridBagConstraints.EAST;
 		gbc_lblSelectYourProfile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSelectYourProfile.gridx = 0;
 		gbc_lblSelectYourProfile.gridy = 2;
@@ -122,9 +174,26 @@ public class ClientFrame extends JFrame {
 		gbc_comboBox.gridy = 2;
 		playerSelect.add(comboBox, gbc_comboBox);
 
+		JButton btnStart = new JButton("Continue!");
+		btnStart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO choose player object from linked list
+				// TODO instantiate game after player object creation
+			}
+		});
+		GridBagConstraints gbc_btnStart = new GridBagConstraints();
+		gbc_btnStart.insets = new Insets(0, 0, 5, 0);
+		gbc_btnStart.gridx = 2;
+		gbc_btnStart.gridy = 2;
+		playerSelect.add(btnStart, gbc_btnStart);
+
 		JLabel lblCreateNewProfile = new JLabel("Create new profile:");
 		GridBagConstraints gbc_lblCreateNewProfile = new GridBagConstraints();
-		gbc_lblCreateNewProfile.anchor = GridBagConstraints.EAST;
 		gbc_lblCreateNewProfile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCreateNewProfile.gridx = 0;
 		gbc_lblCreateNewProfile.gridy = 3;
@@ -139,13 +208,22 @@ public class ClientFrame extends JFrame {
 		playerSelect.add(textField, gbc_textField);
 		textField.setColumns(10);
 
-		JButton btnStart = new JButton("Start!");
-		GridBagConstraints gbc_btnStart = new GridBagConstraints();
-		gbc_btnStart.anchor = GridBagConstraints.WEST;
-		gbc_btnStart.insets = new Insets(0, 0, 5, 5);
-		gbc_btnStart.gridx = 1;
-		gbc_btnStart.gridy = 4;
-		playerSelect.add(btnStart, gbc_btnStart);
+		JButton btnStart2 = new JButton("Start as new player!");
+		btnStart2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO player needs to be freshly instantiated with their name
+				// as their string,
+				// but otherwise it's just to make sure that there's something
+				// for the game to
+				// update at the end of the game.
+			}
+		});
+		GridBagConstraints gbc_btnStart2 = new GridBagConstraints();
+		gbc_btnStart2.insets = new Insets(0, 0, 5, 0);
+		gbc_btnStart2.gridx = 2;
+		gbc_btnStart2.gridy = 3;
+		playerSelect.add(btnStart2, gbc_btnStart2);
 
 		JPanel gameInstance = new JPanel();
 		gameInstance.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -198,7 +276,9 @@ public class ClientFrame extends JFrame {
 		gbc_lblOutcome.gridy = 3;
 		gameInstance.add(lblOutcome, gbc_lblOutcome);
 
-		JTextPane textPane_3 = new JTextPane();
+		JTextPane textPane_3 = new JTextPane(); // blank until call, then it
+												// shows outcome until another
+												// "first" bid is made
 		GridBagConstraints gbc_textPane_3 = new GridBagConstraints();
 		gbc_textPane_3.insets = new Insets(0, 0, 5, 5);
 		gbc_textPane_3.fill = GridBagConstraints.BOTH;
@@ -230,7 +310,13 @@ public class ClientFrame extends JFrame {
 		gbc_lblPlayer.gridy = 6;
 		gameInstance.add(lblPlayer, gbc_lblPlayer);
 
-		JComboBox comboBox_1 = new JComboBox();
+		JComboBox comboBox_1 = new JComboBox(); // TODO this needs to either
+												// have less bids as bids get
+												// higher or it needs to show an
+												// error message if your bid is
+												// too low.
+												// We might have to create an
+												// array with a bid hierarchy...
 		comboBox_1.setToolTipText("Make a bid!");
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
 		gbc_comboBox_1.insets = new Insets(0, 0, 0, 5);
@@ -239,11 +325,123 @@ public class ClientFrame extends JFrame {
 		gbc_comboBox_1.gridy = 6;
 		gameInstance.add(comboBox_1, gbc_comboBox_1);
 
-		JButton btnCall = new JButton("Call!");
+		JButton btnCall = new JButton("Make your choice!");
+		btnCall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCall.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO throws special case in game that ends bidding loop and
+				// judges the dice if call is selected in comboBox
+				// TODO needs to start the bidding loop again from scratch if
+				// player is called
+			}
+		});
 		GridBagConstraints gbc_btnCall = new GridBagConstraints();
 		gbc_btnCall.gridx = 2;
 		gbc_btnCall.gridy = 6;
 		gameInstance.add(btnCall, gbc_btnCall);
+
+		JPanel leaderboards = new JPanel();
+		leaderboards.setBackground(new Color(0, 128, 0));
+		getContentPane().add(leaderboards, "name_1154801492030399");
+		GridBagLayout gbl_leaderboards = new GridBagLayout();
+		gbl_leaderboards.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_leaderboards.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_leaderboards.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
+		gbl_leaderboards.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		leaderboards.setLayout(gbl_leaderboards);
+
+		JList list = new JList();
+		GridBagConstraints gbc_list = new GridBagConstraints();
+		gbc_list.insets = new Insets(0, 0, 5, 5);
+		gbc_list.fill = GridBagConstraints.BOTH;
+		gbc_list.gridx = 6;
+		gbc_list.gridy = 3;
+		leaderboards.add(list, gbc_list);
+
+		JButton btnBack_1 = new JButton("Back");
+		btnBack_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO go back to main menu panel
+			}
+		});
+		GridBagConstraints gbc_btnBack_1 = new GridBagConstraints();
+		gbc_btnBack_1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBack_1.anchor = GridBagConstraints.EAST;
+		gbc_btnBack_1.gridx = 10;
+		gbc_btnBack_1.gridy = 6;
+		leaderboards.add(btnBack_1, gbc_btnBack_1);
+
+		JPanel credits = new JPanel();
+		credits.setBackground(new Color(0, 128, 0));
+		getContentPane().add(credits, "name_1117615109266621");
+		GridBagLayout gbl_credits = new GridBagLayout();
+		gbl_credits.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_credits.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_credits.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_credits.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
+		credits.setLayout(gbl_credits);
+
+		JLabel lblCredits = new JLabel("Credits:");
+		GridBagConstraints gbc_lblCredits = new GridBagConstraints();
+		gbc_lblCredits.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCredits.gridx = 2;
+		gbc_lblCredits.gridy = 1;
+		credits.add(lblCredits, gbc_lblCredits);
+
+		JLabel lblArmaanAmazan = new JLabel("Armaan Amazan");
+		GridBagConstraints gbc_lblArmaanAmazan = new GridBagConstraints();
+		gbc_lblArmaanAmazan.insets = new Insets(0, 0, 5, 5);
+		gbc_lblArmaanAmazan.gridx = 4;
+		gbc_lblArmaanAmazan.gridy = 2;
+		credits.add(lblArmaanAmazan, gbc_lblArmaanAmazan);
+
+		JLabel lblBrettCaley = new JLabel("Brett Caley");
+		GridBagConstraints gbc_lblBrettCaley = new GridBagConstraints();
+		gbc_lblBrettCaley.insets = new Insets(0, 0, 5, 5);
+		gbc_lblBrettCaley.gridx = 6;
+		gbc_lblBrettCaley.gridy = 3;
+		credits.add(lblBrettCaley, gbc_lblBrettCaley);
+
+		JLabel lblNathanielMartin = new JLabel("Nathaniel Martin");
+		GridBagConstraints gbc_lblNathanielMartin = new GridBagConstraints();
+		gbc_lblNathanielMartin.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNathanielMartin.gridx = 4;
+		gbc_lblNathanielMartin.gridy = 4;
+		credits.add(lblNathanielMartin, gbc_lblNathanielMartin);
+
+		JLabel lblAaronPrieger = new JLabel("Aaron Prieger");
+		GridBagConstraints gbc_lblAaronPrieger = new GridBagConstraints();
+		gbc_lblAaronPrieger.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAaronPrieger.gridx = 6;
+		gbc_lblAaronPrieger.gridy = 5;
+		credits.add(lblAaronPrieger, gbc_lblAaronPrieger);
+
+		JLabel lblAndrewPurificacion = new JLabel("Andrew Purificacion");
+		GridBagConstraints gbc_lblAndrewPurificacion = new GridBagConstraints();
+		gbc_lblAndrewPurificacion.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAndrewPurificacion.gridx = 4;
+		gbc_lblAndrewPurificacion.gridy = 6;
+		credits.add(lblAndrewPurificacion, gbc_lblAndrewPurificacion);
+
+		JButton btnBack = new JButton("Back");
+		btnBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO return to main menu panel
+			}
+		});
+		GridBagConstraints gbc_btnBack = new GridBagConstraints();
+		gbc_btnBack.anchor = GridBagConstraints.EAST;
+		gbc_btnBack.gridx = 8;
+		gbc_btnBack.gridy = 10;
+		credits.add(btnBack, gbc_btnBack);
 	}
 
 }
