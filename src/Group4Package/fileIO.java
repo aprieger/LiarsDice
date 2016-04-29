@@ -37,8 +37,8 @@ public class fileIO{
 		}
 
 		FileWriter writeData = new FileWriter("playerdata.txt", true);
-	    BufferedWriter writeBuffer = new BufferedWriter(writeData);
-	    PrintWriter saveFile = new PrintWriter(writeBuffer);
+	    	BufferedWriter writeBuffer = new BufferedWriter(writeData);
+		PrintWriter writeFile = new PrintWriter(writeBuffer);
 
 		// Create a Scanner object and prompt user for the amount of players
 		Scanner input = new Scanner(System.in);
@@ -75,7 +75,7 @@ public class fileIO{
 	        		playerArray[i].setLosses(delimLine.nextInt());
 	        		playerArray[i].setPoints(0); //This is for testing the scoreboard
 	        		nameFound = true;
-	    	        System.out.println("Added returning player " + playerArray[i].getName() + ", with " + playerArray[i].getWins() + " wins/" + playerArray[i].getLosses() + " losses.");
+	    	        	System.out.println("Added returning player " + playerArray[i].getName() + ", with " + playerArray[i].getWins() + " wins/" + playerArray[i].getLosses() + " losses.");
 	        	}
 	        	delimLine.close();
 	        }
@@ -86,14 +86,13 @@ public class fileIO{
 	        	playerArray[i].setWins(0);
         		playerArray[i].setLosses(0);
         		playerArray[i].setPoints(0);
-    	        System.out.println("Added new player " + playerArray[i].getName() + ", with " + playerArray[i].getWins() + " wins/" + playerArray[i].getLosses() + " losses.");
-    	        saveFile.println(playerArray[i].getName()+"\t"+playerArray[i].getWins()+"\t"+playerArray[i].getLosses());
+    	        	System.out.println("Added new player " + playerArray[i].getName() + ", with " + playerArray[i].getWins() + " wins/" + playerArray[i].getLosses() + " losses.");
+    	        	writeFile.println(playerArray[i].getName()+"\t"+playerArray[i].getWins()+"\t"+playerArray[i].getLosses());
 	        }
 			readBuffer.close();
 		}
-
-		saveFile.close();
 		input.close();
+		writeFile.close();
 
 		FileReader LLRead = new FileReader(playerData);
 		BufferedReader LLReadBuff = new BufferedReader(LLRead);
@@ -102,14 +101,15 @@ public class fileIO{
 		// Create linked list to hold the leader board of all players
 		LinkedList playerList = new LinkedList();
 		while((lineLL = LLReadBuff.readLine()) != null){
-				Scanner LLDelim = new Scanner(lineLL).useDelimiter("\\t");
-				Player tempInsert = new Player();
+			Scanner LLDelim = new Scanner(lineLL).useDelimiter("\\t");
+			Player tempInsert = new Player();
         		tempInsert.setName((String)LLDelim.next());
         		tempInsert.setWins(LLDelim.nextInt());
         		tempInsert.setLosses(LLDelim.nextInt());
         		playerList.LLInsert(tempInsert);
-        }
-
+        	}
+		LLReadBuff.close();
+		
 		//Test leaderboard
 		Leaderboard board = new Leaderboard();
 		board.generate(playerList.root);
@@ -119,5 +119,43 @@ public class fileIO{
 		System.out.println(dice.getPlayerDice(1)[0]);
 		dice.rollDice();
 		System.out.println(dice.getPlayerDice(1)[0]);
+		
+		
+		// This next part needs to come after the game is done to save the data to file
+		// new file reader object to read from playerdata.txt
+		FileReader readData = new FileReader(playerData);
+		BufferedReader readBuffer = new BufferedReader(readData);
+		String saveLine = null;
+		String fileContents = "";
+		
+		while ((saveLine = readBuffer.readLine()) != null){
+        	Scanner delimLine = new Scanner(saveLine).useDelimiter("\\t");
+        	String dataName = delimLine.next();
+        	String dataWins = delimLine.next();
+        	String dataLosses = delimLine.next();
+        	boolean found = false;
+        	for (int index = 0; index < playerNum; index++)
+        	{
+			// if the name is found in the text file, copy the name, wins and losses to the player object
+			if (dataName.equals(playerArray[index].getName())){
+				fileContents = fileContents + (playerArray[index].getName()+"\t"+playerArray[index].getWins()+"\t"+playerArray[index].getLosses());
+				found = true;
+	        	}
+        	}
+        	if (found == false)
+        	{
+        		fileContents = fileContents + (dataName + "\t" + dataWins + "\t" + dataLosses + "\n");
+        	}
+        	delimLine.close();
+		}
+		readBuffer.close();
+		playerData.delete();
+		
+		// save text file
+		FileWriter saveData = new FileWriter("playerdata.txt", true);
+		BufferedWriter saveBuffer = new BufferedWriter(saveData);
+		PrintWriter saveFile = new PrintWriter(saveBuffer);
+		saveFile.println(fileContents);
+		saveFile.close();
 	}
 }
