@@ -84,8 +84,8 @@ while(potato) {
 		if(choice.indexOf("Bet") != -1) {
 			String[] pieces = choice.split(" ");
 			decision.call = true;
-			decision.dice_num = Integer.parseInt(pieces[2]);
-			decision.dice_face = Integer.parseInt(pieces[5]);
+			decision.dice_num = Integer.parseInt(pieces[1]);
+			decision.dice_face = Integer.parseInt(pieces[4]);
 		}
 		else {
 			decision.call = false;
@@ -103,7 +103,10 @@ while(potato) {
 			return "Calling bluff";
 		}
 		else {
-			return ""+decision.dice_num+" rolls of "+decision.dice_face;
+			if(current_bet.dice_num == 1 && current_bet.dice_face == 1) {
+				return "";
+			}
+			return ""+current_bet.dice_num+" rolls of "+current_bet.dice_face;
 		}
 	}
 
@@ -115,6 +118,9 @@ while(potato) {
 	public void getPlayerAction(AIDecision action) {
 		if(!done && ((turn+inner_turn)%2==0)) {
 			if(inner_turn == 0) { //Is this a starting bet? Do special stuffs:
+				if(!action.call) {
+					return;
+				}
 				if(turn % 2 == 0) { //Player making starting bet
 					current_bet = action;
 				}
@@ -232,7 +238,6 @@ while(potato) {
 				entries += "Bet "+j+" rolls of "+i+"\n";
 			}
 		}
-		System.out.println(entries);
 		return entries.split("\n");
 	}
 

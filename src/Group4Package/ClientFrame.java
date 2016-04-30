@@ -30,6 +30,7 @@ import javax.swing.JList;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.io.IOException;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  * Title: GameFrame
@@ -79,6 +80,7 @@ public class ClientFrame extends JFrame {
 	 * @throws IOException
 	 */
 	public ClientFrame() throws IOException {
+		game = new Game(new Player());
 		setTitle("Liar's Dice -- Group 4, CSE360");
 		getContentPane().setLayout(new CardLayout(0, 0));
 
@@ -231,14 +233,17 @@ public class ClientFrame extends JFrame {
 		JButton btnStart2 = new JButton("New Player!");
 		btnStart2.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {/*
 				try {
 					newList = new LinkedList();
 					mainFile.fileIn(textField.getText(), false);
 					newList = mainFile.LLStart();
 				} catch (IOException e1) {
 					e1.printStackTrace();
-				}
+				}*/
+				CardLayout tempcl = (CardLayout) getContentPane().getLayout();
+				tempcl.show(getContentPane(), "gameInstance");
+				return;
 				// TODO player needs to be freshly instantiated with their name
 				// as their string,
 				// but otherwise it's just to make sure that there's something
@@ -321,7 +326,7 @@ public class ClientFrame extends JFrame {
 		gbc_lblYourDice.gridy = 5;
 		gameInstance.add(lblYourDice, gbc_lblYourDice);
 
-		JTextPane textPane_1 = new JTextPane();
+		final JTextPane textPane_1 = new JTextPane();
 		GridBagConstraints gbc_textPane_1 = new GridBagConstraints();
 		gbc_textPane_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textPane_1.fill = GridBagConstraints.BOTH;
@@ -337,7 +342,7 @@ public class ClientFrame extends JFrame {
 		gbc_lblPlayer.gridy = 6;
 		gameInstance.add(lblPlayer, gbc_lblPlayer);
 
-		final JComboBox comboBox_1 = new JComboBox(); // TODO this needs to either
+		final JComboBox comboBox_1 = new JComboBox(new String[] {"Start"}); // TODO this needs to either
 												// have less bids as bids get
 												// higher or it needs to show an
 												// error message if your bid is
@@ -360,12 +365,13 @@ public class ClientFrame extends JFrame {
 		btnCall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				game.getPlayerAction(game.storePlayerAction(comboBox_1.getSelectedItem().toString()));
-				comboBox_1 = new JComboBox(game.getPossibleActions());
-				textPane.setText(game.getOpponentDiceNum());
+				game.getPlayerAction(game.storePlayerAction((comboBox_1.getSelectedItem()).toString()));
+				comboBox_1.setModel(new DefaultComboBoxModel(game.getPossibleActions()));
+				textPane.setText(new Integer(game.getOpponentDiceNum()).toString());
 				textPane_2.setText(game.getOpponentMove());
+				textPane_1.setText(Arrays.toString(game.getPlayerDice()));
 				//PUT DICE GRAPHICS here
-				
+
 				// TODO throws special case in game that ends bidding loop and
 				// judges the dice if call is selected in comboBox
 				// TODO needs to start the bidding loop again from scratch if
