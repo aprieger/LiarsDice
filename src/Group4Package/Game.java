@@ -59,6 +59,10 @@ while(potato) {
 		return dice.getPlayerDice();
 	}
 
+	public int getOpponentDiceNum() {
+		return dice.getOpponentDiceNum();
+	}
+
 	/*
 	 * Main game method that happens when the player clicks the "Make Your Choice!" button
 	 *

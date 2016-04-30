@@ -14,6 +14,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JSplitPane;
@@ -22,7 +23,6 @@ import javax.swing.Box;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.CardLayout;
@@ -47,7 +47,10 @@ public class ClientFrame extends JFrame {
 	private fileIO mainFile;
 	private LinkedList newList;
 
+
 	protected JLabel lblNoPlayerSelected;
+
+	Game game;
 
 	/**
 	 * Launches the application. TODO make I/O be the first thing that happens
@@ -58,6 +61,7 @@ public class ClientFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+
 					ClientFrame frame = new ClientFrame();
 					frame.setVisible(true);
 					frame.setSize(500, 400);
@@ -72,9 +76,8 @@ public class ClientFrame extends JFrame {
 
 	/**
 	 * Client constructor.
-	@throws IOException 
 	 */
-	public ClientFrame() throws IOException {
+	public ClientFrame() {
 		setTitle("Liar's Dice -- Group 4, CSE360");
 		getContentPane().setLayout(new CardLayout(0, 0));
 
@@ -116,7 +119,6 @@ public class ClientFrame extends JFrame {
 				// TODO move to playerSelect
 				CardLayout cardLayoutTemp = (CardLayout) getContentPane().getLayout();
 				cardLayoutTemp.show(getContentPane(), "playerSelect");
-				mainFile = new fileIO();
 			}
 		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
@@ -243,8 +245,8 @@ public class ClientFrame extends JFrame {
 		});
 		GridBagConstraints gbc_btnStart2 = new GridBagConstraints();
 		gbc_btnStart2.insets = new Insets(0, 0, 5, 0);
-		gbc_btnStart2.gridx = 1;
-		gbc_btnStart2.gridy = 3;
+		gbc_btnStart2.gridx = 2;
+		gbc_btnStart2.gridy = 4;
 		playerSelect.add(btnStart2, gbc_btnStart2);
 
 		JPanel gameInstance = new JPanel();
