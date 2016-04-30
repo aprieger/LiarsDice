@@ -42,6 +42,12 @@ import java.util.Arrays
  */
 public class ClientFrame extends JFrame {
 	private JTextField textField;
+	protected boolean playerSelected;
+	protected String currentPlayerName;
+	private fileIO mainFile;
+	private LinkedList newList;
+	
+	protected JLabel lblNoPlayerSelected;
 
 	/**
 	 * Launches the application. TODO make I/O be the first thing that happens
@@ -191,24 +197,23 @@ public class ClientFrame extends JFrame {
 		gbl_playerSelect.rowWeights = new double[] { 1.0, 0.0, 0.0, 2.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		playerSelect.setLayout(gbl_playerSelect);
 
-		JLabel lblSelectYourProfile = new JLabel("Select your profile:");
+		JLabel lblSelectYourProfile = new JLabel("Type Player Name:");
 		GridBagConstraints gbc_lblSelectYourProfile = new GridBagConstraints();
 		gbc_lblSelectYourProfile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSelectYourProfile.gridx = 0;
 		gbc_lblSelectYourProfile.gridy = 2;
 		playerSelect.add(lblSelectYourProfile, gbc_lblSelectYourProfile);
 
-		JComboBox comboBox = new JComboBox();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 2;
-		playerSelect.add(comboBox, gbc_comboBox);
-
-		JButton btnStart = new JButton("Continue!");
+		JButton btnStart = new JButton("Returning Player!");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					newList = new LinkedList();
+					mainFile.fileIn(textField.getText(), true);
+					newList = mainFile.LLStart();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnStart.addMouseListener(new MouseAdapter() {
@@ -222,30 +227,30 @@ public class ClientFrame extends JFrame {
 		});
 		GridBagConstraints gbc_btnStart = new GridBagConstraints();
 		gbc_btnStart.insets = new Insets(0, 0, 5, 0);
-		gbc_btnStart.gridx = 2;
-		gbc_btnStart.gridy = 2;
+		gbc_btnStart.gridx = 0;
+		gbc_btnStart.gridy = 3;
 		playerSelect.add(btnStart, gbc_btnStart);
-
-		JLabel lblCreateNewProfile = new JLabel("Create new profile:");
-		GridBagConstraints gbc_lblCreateNewProfile = new GridBagConstraints();
-		gbc_lblCreateNewProfile.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCreateNewProfile.gridx = 0;
-		gbc_lblCreateNewProfile.gridy = 3;
-		playerSelect.add(lblCreateNewProfile, gbc_lblCreateNewProfile);
 
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 3;
+		gbc_textField.gridy = 2;
 		playerSelect.add(textField, gbc_textField);
 		textField.setColumns(10);
 
-		JButton btnStart2 = new JButton("Start as new player!");
+		JButton btnStart2 = new JButton("New Player!");
 		btnStart2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				try {
+					newList = new LinkedList();
+					mainFile.fileIn(textField.getText(), false);
+					newList = mainFile.LLStart();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				// TODO player needs to be freshly instantiated with their name
 				// as their string,
 				// but otherwise it's just to make sure that there's something
@@ -256,7 +261,7 @@ public class ClientFrame extends JFrame {
 		GridBagConstraints gbc_btnStart2 = new GridBagConstraints();
 		gbc_btnStart2.insets = new Insets(0, 0, 5, 0);
 		gbc_btnStart2.gridx = 2;
-		gbc_btnStart2.gridy = 3;
+		gbc_btnStart2.gridy = 4;
 		playerSelect.add(btnStart2, gbc_btnStart2);
 
 		JPanel gameInstance = new JPanel();
