@@ -122,25 +122,28 @@ public class fileIO
 		String saveLine = null;
 		String fileContents = "";
 		
-		// until the end of the file do
-		while ((saveLine = readBuffer.readLine()) != null && saveLine.length()!=0){
-			// new delimeter and read the next three values into "dataName", "dataWins", and "dataLosses" respectively
-			Scanner delimLine = new Scanner(saveLine).useDelimiter("\\t");
-        	String dataName = delimLine.next();
-        	String dataWins = delimLine.next();
-        	String dataLosses = delimLine.next();
-        	boolean found = false;
-			// if the name is found in the playerArray, copy the name, wins and losses to the "fileContents"
-        	if (dataName.equals(newPlayer.getName())){
-				fileContents = fileContents + (newPlayer.getName()+"\t"+newPlayer.getWins()+"\t"+newPlayer.getLosses());
-				found = true;
+		if (newPlayer != null)
+		{
+			// until the end of the file do
+			while ((saveLine = readBuffer.readLine()) != null && saveLine.length()!=0){
+				// new delimeter and read the next three values into "dataName", "dataWins", and "dataLosses" respectively
+				Scanner delimLine = new Scanner(saveLine).useDelimiter("\\t");
+	        	String dataName = delimLine.next();
+	        	String dataWins = delimLine.next();
+	        	String dataLosses = delimLine.next();
+	        	boolean found = false;
+				// if the name is found in the playerArray, copy the name, wins and losses to the "fileContents"
+	        	if (dataName.equals(newPlayer.getName())){
+					fileContents = fileContents + (newPlayer.getName()+"\t"+newPlayer.getWins()+"\t"+newPlayer.getLosses());
+					found = true;
+		        	}
+	        	// if the name is not in the array, copy it from the text file and paste into "fileContents"
+	        	if (found == false)
+	        	{
+	        		fileContents = fileContents + (dataName + "\t" + dataWins + "\t" + dataLosses + "\n");
 	        	}
-        	// if the name is not in the array, copy it from the text file and paste into "fileContents"
-        	if (found == false)
-        	{
-        		fileContents = fileContents + (dataName + "\t" + dataWins + "\t" + dataLosses + "\n");
-        	}
-        	delimLine.close();
+	        	delimLine.close();
+			}
 		}
 		readBuffer.close();
 		
