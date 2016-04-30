@@ -72,8 +72,9 @@ public class ClientFrame extends JFrame {
 
 	/**
 	 * Client constructor.
+	@throws IOException 
 	 */
-	public ClientFrame() {
+	public ClientFrame() throws IOException {
 		setTitle("Liar's Dice -- Group 4, CSE360");
 		getContentPane().setLayout(new CardLayout(0, 0));
 
@@ -115,6 +116,7 @@ public class ClientFrame extends JFrame {
 				// TODO move to playerSelect
 				CardLayout cardLayoutTemp = (CardLayout) getContentPane().getLayout();
 				cardLayoutTemp.show(getContentPane(), "playerSelect");
+				mainFile = new fileIO();
 			}
 		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
@@ -241,8 +243,8 @@ public class ClientFrame extends JFrame {
 		});
 		GridBagConstraints gbc_btnStart2 = new GridBagConstraints();
 		gbc_btnStart2.insets = new Insets(0, 0, 5, 0);
-		gbc_btnStart2.gridx = 2;
-		gbc_btnStart2.gridy = 4;
+		gbc_btnStart2.gridx = 1;
+		gbc_btnStart2.gridy = 3;
 		playerSelect.add(btnStart2, gbc_btnStart2);
 
 		JPanel gameInstance = new JPanel();
