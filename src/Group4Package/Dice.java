@@ -24,6 +24,8 @@ public class Dice {
 	 */
 	public Dice(int playerCount) {
 		dice = new int[playerCount*MAX_DICE];
+		player = 5;
+		opponent = 5;
 		rollDice();
 	}
 
@@ -31,7 +33,7 @@ public class Dice {
 	 * Gets a specified player's set of dice.
 	 *
 	 * @param The index of the player (Player 0, Player 1, Player 2, etc.)
-	 * @return An array of their roll results. (Includes missing dice)
+	 * @return An array of their roll results.
 	 */
 	public int[] getPlayerDice(int playerIndex) {
 		int[] playerDice = new int[MAX_DICE];
@@ -39,6 +41,76 @@ public class Dice {
 			playerDice[i] = dice[playerIndex*MAX_DICE+i];
 		}
 		return playerDice;
+	}
+
+	/**
+	 * Gets the human player's set of dice.
+	 *
+	 * @return An array of their roll results.
+	 */
+	public int[] getPlayerDice() {
+		int[] playerDice = new int[player];
+		for(int i = 0; i < player; i++) {
+			playerDice[i] = dice[i];
+		}
+		return playerDice;
+	}
+
+	/**
+	 * Gets the computer opponent's set of dice.
+	 *
+	 * @return An array of their roll results.
+	 */
+	public int[] getOpponentDice() {
+		int[] playerDice = new int[opponent];
+		for(int i = 0; i < opponent; i++) {
+			playerDice[i] = dice[player+i];
+		}
+		return playerDice;
+	}
+
+	/**
+	 * Gets the player's dice score.
+	 *
+	 * @return An int representing their dice score.
+	 */
+	public int getPlayerDiceNum() {
+		return player;
+	}
+
+	/**
+	 * Gets the opponents's dice score.
+	 *
+	 * @return An int representing their dice score.
+	 */
+	public int getOpponentDiceNum() {
+		return opponent;
+	}
+
+	/*
+	 * Gives the player 1 die from the opponent.
+	 */
+	public void awardPlayer() {
+		player++;
+		opponent--;
+	}
+
+	/*
+	 * Gives the opponent 1 die from the opponent.
+	 */
+	public void awardOpponent() {
+		player--;
+		opponent++;
+	}
+
+
+	/*
+	 * Gets all dice for the game to validate bets/calls
+	 *
+	 * @return An array of all dice results.
+	 */
+	public int[] getAllDice() {
+		return dice;
 	}
 
 	/**

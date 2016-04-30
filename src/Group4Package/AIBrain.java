@@ -64,15 +64,21 @@ public class AIBrain {
 					decision.dice_num += quantity + rand.nextInt(total_dice_count/6);
 					//Add the number of dice the player claimed +/- a random number
 				}
+				if(decision.dice_num == quantity) {
+					decision.dice_num += 1;
+				}
 				return decision;
 			}
 		}
 
 		//The AI doesn't have good information on whether the call is true or not. Take a shot in the dark.
-		if(rand.nextInt(8) != 0) {
+		if(rand.nextInt(8) != 0 || quantity == 0) {
 			decision.call = true;
 			decision.dice_face = Math.max(max_face,face);
 			decision.dice_num = Math.min(Math.max(max_quantity,quantity+1),total_dice_count);
+			if(decision.dice_num == quantity) {
+				decision.dice_num += 1;
+			}
 			return decision;
 		}
 		else {

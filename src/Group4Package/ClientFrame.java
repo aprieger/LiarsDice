@@ -28,12 +28,14 @@ import java.awt.Container;
 import java.awt.CardLayout;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import java.util.Scanner;
+import java.util.Arrays
 
 /**
  * Title: GameFrame
- * 
+ *
  * @author Armaan Amazan
- * 
+ *
  *         Description: Java Client for the game. Updates with information and
  *         serves as user interface.
  *
@@ -50,6 +52,25 @@ public class ClientFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Player p = new Player();
+					Game g = new Game(p);
+					boolean potato = true;
+					while(potato) {
+						System.out.println("Your dice: "+Arrays.toString(g.getPlayerDice()));
+						Scanner inputy = new Scanner(System.in);
+						int face = inputy.nextInt();
+						int quantity = inputy.nextInt();
+						AIDecision decision = new AIDecision();
+						if(face == 0 || quantity == 0) {
+							decision.call = false;
+						}
+						else {
+							decision.call = true;
+							decision.dice_face = face;
+							decision.dice_num = quantity;
+						}
+						g.getPlayerAction(decision);
+					}
 					ClientFrame frame = new ClientFrame();
 					frame.setVisible(true);
 					frame.setSize(500, 400);
