@@ -1,6 +1,0 @@
-Patrick	2	3
-Joe	4	1
-Phil	6	10
-Sharon	1	2
-Bob 0 0
-Lily  3 4
