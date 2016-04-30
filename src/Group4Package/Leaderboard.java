@@ -47,24 +47,22 @@ public class Leaderboard {
 	 * Currently only outputs debug output.
 	 *
 	 * @param The game's linked list of players
-	 * @return String version of leaderboard
+	 * @return String[] version of leaderboard
 	 */
-	public void generate(Player listRoot) {
+	public String[] generate(Player listRoot) {
 		Player node = listRoot;
-
+		String[] outarray = new String[50];
 		//XXX: Remove this line, it just makes the debug output more readable
-		//System.out.println("LEADERBOARD\n===========");
 
-		//System.out.println("Name\tW/L\tPoints\n");
-
-		String out = "";
+		outarray[0] = "LEADERBOARD";
+		outarray[1] = "===========";
+		outarray[2] ="";
+		int index = 3;
 		while(node != null) {
-			out +=
-				node.getName() + "\t" + node.getWins() + "/" +
-				node.getLosses() + "\t" + node.getPoints()
-			;
+			outarray[index] = node.getName() + " has " + node.getWins() + "/" + node.getLosses() + " Wins/Losses and " + node.getPoints() + " Points\n";;
 			node = node.next;
+			index++;
 		}
-		return out;
+		return outarray;
 	}
 }
