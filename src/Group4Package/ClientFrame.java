@@ -80,6 +80,7 @@ public class ClientFrame extends JFrame {
 	 * @throws IOException
 	 */
 	public ClientFrame() throws IOException {
+		mainFile = new fileIO();
 		game = new Game(new Player());
 		setTitle("Liar's Dice -- Group 4, CSE360");
 		getContentPane().setLayout(new CardLayout(0, 0));
@@ -122,7 +123,6 @@ public class ClientFrame extends JFrame {
 				// TODO move to playerSelect
 				CardLayout cardLayoutTemp = (CardLayout) getContentPane().getLayout();
 				cardLayoutTemp.show(getContentPane(), "playerSelect");
-				mainFile = new fileIO();
 			}
 		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
@@ -165,7 +165,12 @@ public class ClientFrame extends JFrame {
 		button_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO save file before exit
+				try {
+					mainFile.fileOut();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.exit(0);
 			}
 		});
