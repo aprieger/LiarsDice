@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class DiceGraphicTest {
 
-	DiceGraphic diceImageTest1;
+	private DiceGraphic diceImageTest1;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -37,9 +37,10 @@ public class DiceGraphicTest {
 	@Test
 	public void testSetDiceGraphic(){
 		diceImageTest1 = new DiceGraphic(1);
-		DiceGraphic diceImageTest2 = new DiceGraphic();
-		
+		DiceGraphic diceImageTest2 = new DiceGraphic(1);
 		diceImageTest1.setDiceGraphic(2);
+		
+		assertNotSame(diceImageTest1.getDiceGraphic(),diceImageTest2.getDiceGraphic());
 		
 	}
 

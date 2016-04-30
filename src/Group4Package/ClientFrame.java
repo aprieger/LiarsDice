@@ -72,7 +72,7 @@ public class ClientFrame extends JFrame {
 		JPanel mainMenu = new JPanel(); // Main menu panel
 		mainMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 		mainMenu.setBackground(new Color(0, 128, 0));
-		getContentPane().add(mainMenu, "name_3925652528036");
+		getContentPane().add(mainMenu, "mainMenu");
 		GridBagLayout gbl_mainMenu = new GridBagLayout();
 		gbl_mainMenu.columnWidths = new int[] { 0, 0, 0, 0 };
 		gbl_mainMenu.rowHeights = new int[] { 40, 0, 40, 0, 35, 0, 23, 0 };
@@ -105,11 +105,8 @@ public class ClientFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO move to playerSelect
-				
 				CardLayout cardLayoutTemp = (CardLayout) getContentPane().getLayout();
-				
 				cardLayoutTemp.show(getContentPane(), "playerSelect");
-					
 			}
 		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
@@ -123,6 +120,8 @@ public class ClientFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO move to leaderboards panel
+				CardLayout tempcl = (CardLayout) getContentPane().getLayout();
+				tempcl.show(getContentPane(), "leaderboards");
 			}
 		});
 		GridBagConstraints gbc_button_1 = new GridBagConstraints();
@@ -136,6 +135,8 @@ public class ClientFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO show credits panel
+				CardLayout tempcl = (CardLayout) getContentPane().getLayout();
+				tempcl.show(getContentPane(), "credits");
 			}
 		});
 		GridBagConstraints gbc_btnCredits = new GridBagConstraints();
@@ -194,6 +195,8 @@ public class ClientFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				// TODO choose player object from linked list
 				// TODO instantiate game after player object creation
+				CardLayout tempcl = (CardLayout) getContentPane().getLayout();
+				tempcl.show(getContentPane(), "gameInstance");
 			}
 		});
 		GridBagConstraints gbc_btnStart = new GridBagConstraints();
@@ -238,7 +241,7 @@ public class ClientFrame extends JFrame {
 		JPanel gameInstance = new JPanel();
 		gameInstance.setBorder(new EmptyBorder(5, 5, 5, 5));
 		gameInstance.setBackground(new Color(0, 128, 0));
-		getContentPane().add(gameInstance, "name_4209398013977"); //420 lol
+		getContentPane().add(gameInstance, "gameInstance");
 		GridBagLayout gbl_gameInstance = new GridBagLayout();
 		gbl_gameInstance.columnWidths = new int[] { 0, 0, 0, 0 };
 		gbl_gameInstance.rowHeights = new int[] { 40, 0, 40, 0, 35, 0, 23, 0 };
@@ -356,7 +359,7 @@ public class ClientFrame extends JFrame {
 
 		JPanel leaderboards = new JPanel();
 		leaderboards.setBackground(new Color(0, 128, 0));
-		getContentPane().add(leaderboards, "name_1154801492030399");
+		getContentPane().add(leaderboards, "leaderboards");
 		GridBagLayout gbl_leaderboards = new GridBagLayout();
 		gbl_leaderboards.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_leaderboards.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -378,6 +381,8 @@ public class ClientFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO go back to main menu panel
+				CardLayout tempcl = (CardLayout) getContentPane().getLayout();
+				tempcl.show(getContentPane(), "mainMenu");
 			}
 		});
 		GridBagConstraints gbc_btnBack_1 = new GridBagConstraints();
@@ -389,7 +394,7 @@ public class ClientFrame extends JFrame {
 
 		JPanel credits = new JPanel();
 		credits.setBackground(new Color(0, 128, 0));
-		getContentPane().add(credits, "name_1117615109266621");
+		getContentPane().add(credits, "credits");
 		GridBagLayout gbl_credits = new GridBagLayout();
 		gbl_credits.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_credits.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -444,7 +449,8 @@ public class ClientFrame extends JFrame {
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO return to main menu panel
+				CardLayout tempcl = (CardLayout) getContentPane().getLayout();
+				tempcl.show(getContentPane(), "mainMenu");
 			}
 		});
 		GridBagConstraints gbc_btnBack = new GridBagConstraints();
