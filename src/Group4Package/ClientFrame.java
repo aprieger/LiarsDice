@@ -40,6 +40,10 @@ import javax.swing.JList;
  */
 public class ClientFrame extends JFrame {
 	private JTextField textField;
+	protected boolean playerSelected;
+	protected String currentPlayerName;
+	
+	protected JLabel lblNoPlayerSelected;
 
 	/**
 	 * Launches the application. TODO make I/O be the first thing that happens
@@ -177,12 +181,22 @@ public class ClientFrame extends JFrame {
 		gbc_lblSelectYourProfile.gridy = 2;
 		playerSelect.add(lblSelectYourProfile, gbc_lblSelectYourProfile);
 
+		
 		JComboBox comboBox = new JComboBox();
+		playerSelected = false;
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
 		gbc_comboBox.gridy = 2;
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				playerSelected = true;
+				JComboBox cb = (JComboBox) arg0.getSource();
+				currentPlayerName = (String) cb.getSelectedItem();
+				lblNoPlayerSelected.setText(currentPlayerName);
+			}
+		});
 		playerSelect.add(comboBox, gbc_comboBox);
 
 		JButton btnStart = new JButton("Continue!");
@@ -195,8 +209,12 @@ public class ClientFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				// TODO choose player object from linked list
 				// TODO instantiate game after player object creation
-				CardLayout tempcl = (CardLayout) getContentPane().getLayout();
-				tempcl.show(getContentPane(), "gameInstance");
+				if(ClientFrame.this.playerSelected == true){
+					CardLayout tempcl = (CardLayout) getContentPane().getLayout();
+					tempcl.show(getContentPane(), "gameInstance");	
+				}else{
+					ClientFrame.this.lblNoPlayerSelected.setVisible(true);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnStart = new GridBagConstraints();
@@ -204,23 +222,32 @@ public class ClientFrame extends JFrame {
 		gbc_btnStart.gridx = 2;
 		gbc_btnStart.gridy = 2;
 		playerSelect.add(btnStart, gbc_btnStart);
-
+				
+		lblNoPlayerSelected = new JLabel("No player selected!");
+		lblNoPlayerSelected.setForeground(Color.RED);
+		GridBagConstraints gbc_lblNoPlayerSelected = new GridBagConstraints();
+		gbc_lblNoPlayerSelected.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNoPlayerSelected.gridx = 0;
+		gbc_lblNoPlayerSelected.gridy = 3;
+		lblNoPlayerSelected.setVisible(false);
+		playerSelect.add(lblNoPlayerSelected, gbc_lblNoPlayerSelected);
+	
 		JLabel lblCreateNewProfile = new JLabel("Create new profile:");
 		GridBagConstraints gbc_lblCreateNewProfile = new GridBagConstraints();
 		gbc_lblCreateNewProfile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCreateNewProfile.gridx = 0;
-		gbc_lblCreateNewProfile.gridy = 3;
+		gbc_lblCreateNewProfile.gridy = 4;
 		playerSelect.add(lblCreateNewProfile, gbc_lblCreateNewProfile);
-
+				
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 3;
+		gbc_textField.gridy = 4;
 		playerSelect.add(textField, gbc_textField);
 		textField.setColumns(10);
-
+						
 		JButton btnStart2 = new JButton("Start as new player!");
 		btnStart2.addMouseListener(new MouseAdapter() {
 			@Override
@@ -230,12 +257,21 @@ public class ClientFrame extends JFrame {
 				// but otherwise it's just to make sure that there's something
 				// for the game to
 				// update at the end of the game.
+				JTextField tf = (JTextField) textField;
+				if(!tf.getText().isEmpty()) {
+					currentPlayerName = tf.getText();
+					CardLayout cl = (CardLayout) getContentPane().getLayout();
+					cl.show(getContentPane(), "gameInstance");
+					///lblNoPlayerSelected.setVisible(true);
+				}else{
+					lblNoPlayerSelected.setVisible(true);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnStart2 = new GridBagConstraints();
 		gbc_btnStart2.insets = new Insets(0, 0, 5, 0);
 		gbc_btnStart2.gridx = 2;
-		gbc_btnStart2.gridy = 3;
+		gbc_btnStart2.gridy = 4;
 		playerSelect.add(btnStart2, gbc_btnStart2);
 
 		JPanel gameInstance = new JPanel();
