@@ -24,6 +24,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.CardLayout;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -96,10 +97,19 @@ public class ClientFrame extends JFrame {
 		mainMenu.add(label_1, gbc_label_1);
 
 		JButton button = new JButton("New Game");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO move to playerSelect
+				
+				CardLayout cardLayoutTemp = (CardLayout) getContentPane().getLayout();
+				
+				cardLayoutTemp.show(getContentPane(), "playerSelect");
+					
 			}
 		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
@@ -151,7 +161,7 @@ public class ClientFrame extends JFrame {
 		JPanel playerSelect = new JPanel();
 		playerSelect.setBorder(new EmptyBorder(5, 5, 5, 5));
 		playerSelect.setBackground(new Color(0, 128, 0));
-		getContentPane().add(playerSelect, "name_3934677713321");
+		getContentPane().add(playerSelect, "playerSelect");
 		GridBagLayout gbl_playerSelect = new GridBagLayout();
 		gbl_playerSelect.columnWidths = new int[] { 0, 0, 0, 0 };
 		gbl_playerSelect.rowHeights = new int[] { 40, 0, 40, 0, 35, 0, 23, 0 };
@@ -228,7 +238,7 @@ public class ClientFrame extends JFrame {
 		JPanel gameInstance = new JPanel();
 		gameInstance.setBorder(new EmptyBorder(5, 5, 5, 5));
 		gameInstance.setBackground(new Color(0, 128, 0));
-		getContentPane().add(gameInstance, "name_4209398013977");
+		getContentPane().add(gameInstance, "name_4209398013977"); //420 lol
 		GridBagLayout gbl_gameInstance = new GridBagLayout();
 		gbl_gameInstance.columnWidths = new int[] { 0, 0, 0, 0 };
 		gbl_gameInstance.rowHeights = new int[] { 40, 0, 40, 0, 35, 0, 23, 0 };
