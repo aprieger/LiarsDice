@@ -36,7 +36,7 @@ public class fileIO
 	public Player fileIn(String playerName, boolean returning) throws IOException
 	{
 		FileWriter writeData = new FileWriter("playerdata.txt", true);
-		BufferedWriter writeBuffer = new BufferedWriter(writeData);
+	    BufferedWriter writeBuffer = new BufferedWriter(writeData);
 		PrintWriter writeFile = new PrintWriter(writeBuffer);
 
 		// Create the array of players based on the input size
@@ -64,7 +64,7 @@ public class fileIO
 	        		newPlayer.setLosses(delimLine.nextInt());
 	        		newPlayer.setPoints(0); //This is for testing the scoreboard
 	        		nameFound = true;
-	    	        	System.out.println("Added returning player " + newPlayer.getName() + ", with " + newPlayer.getWins() + " wins/" + newPlayer.getLosses() + " losses.");
+	    	        System.out.println("Added returning player " + newPlayer.getName() + ", with " + newPlayer.getWins() + " wins/" + newPlayer.getLosses() + " losses.");
 	        	}
 	        	delimLine.close();
 	        }
@@ -72,20 +72,20 @@ public class fileIO
 	        if (nameFound == false){
 	        	System.out.println("Player Not Found");
 	        }
-		readBuffer.close();
-	}
-	else
-	{
+			readBuffer.close();
+		}
+		else
+		{
         	newPlayer.setName(playerName);
         	newPlayer.setWins(0);
         	newPlayer.setLosses(0);
         	newPlayer.setPoints(0);
 	        System.out.println("Added new player " + newPlayer.getName() + ", with " + newPlayer.getWins() + " wins/" + newPlayer.getLosses() + " losses.");
 	        writeFile.println(newPlayer.getName()+"\t"+newPlayer.getWins()+"\t"+newPlayer.getLosses()+"\n");
-	}
-	writeFile.close();
+		}
+		writeFile.close();
 		
-	return newPlayer;
+		return newPlayer;
 	}
 	/**LLStart(): Method that creates the linked list that will hold the leaderboard
 	 * @throws IOException
@@ -103,10 +103,10 @@ public class fileIO
 		while((lineLL = LLReadBuff.readLine()) != null && lineLL.length()!=0){
 			Scanner LLDelim = new Scanner(lineLL).useDelimiter("\\t");
 			Player tempInsert = new Player();
-    			tempInsert.setName((String)LLDelim.next());
-    			tempInsert.setWins(LLDelim.nextInt());
-    			tempInsert.setLosses(LLDelim.nextInt());
-    			playerList.LLInsert(tempInsert);
+    		tempInsert.setName((String)LLDelim.next());
+    		tempInsert.setWins(LLDelim.nextInt());
+    		tempInsert.setLosses(LLDelim.nextInt());
+    		playerList.LLInsert(tempInsert);
         	}
 		LLReadBuff.close();
 		
@@ -126,21 +126,21 @@ public class fileIO
 		while ((saveLine = readBuffer.readLine()) != null && saveLine.length()!=0){
 			// new delimeter and read the next three values into "dataName", "dataWins", and "dataLosses" respectively
 			Scanner delimLine = new Scanner(saveLine).useDelimiter("\\t");
-        		String dataName = delimLine.next();
-        		String dataWins = delimLine.next();
-        		String dataLosses = delimLine.next();
-        		boolean found = false;
+        	String dataName = delimLine.next();
+        	String dataWins = delimLine.next();
+        	String dataLosses = delimLine.next();
+        	boolean found = false;
 			// if the name is found in the playerArray, copy the name, wins and losses to the "fileContents"
-        		if (dataName.equals(newPlayer.getName())){
+        	if (dataName.equals(newPlayer.getName())){
 				fileContents = fileContents + (newPlayer.getName()+"\t"+newPlayer.getWins()+"\t"+newPlayer.getLosses());
 				found = true;
 	        	}
         	// if the name is not in the array, copy it from the text file and paste into "fileContents"
-        		if (found == false)
-        		{
-        			fileContents = fileContents + (dataName + "\t" + dataWins + "\t" + dataLosses + "\n");
-        		}
-        		delimLine.close();
+        	if (found == false)
+        	{
+        		fileContents = fileContents + (dataName + "\t" + dataWins + "\t" + dataLosses + "\n");
+        	}
+        	delimLine.close();
 		}
 		readBuffer.close();
 		
