@@ -55,12 +55,41 @@ while(potato) {
 		current_bet.dice_num = 1;
 	}
 
+	/*
+	 * Returns an array of the player's dice for the GUI.
+	 *
+	 * @return An array of integers representing the player's dice.
+	 */
 	public int[] getPlayerDice() {
 		return dice.getPlayerDice();
 	}
 
+	/*
+	 * Returns the amount of the opponent's number of dice for the GUI.
+	 *
+	 * @return An integer representing the opponent's dice number.
+	 */
 	public int getOpponentDiceNum() {
 		return dice.getOpponentDiceNum();
+	}
+
+	/*
+	 * Creates an AIDecision object from the GUI's ComboBox selection.
+	 *
+	 * @param The ComboBox value representing the player's choice.
+	 */
+	public AIDecision storePlayerAction(String choice) {
+		AIDecision decision = new AIDecision();
+		if(choice.indexOf("Bet") != -1) {
+			String[] pieces = choice.split(" ");
+			decision.call = true;
+			decision.dice_num = Integer.parseInt(pieces[2]);
+			decision.dice_face = Integer.parseInt(pieces[5]);
+		}
+		else {
+			decision.call = false;
+		}
+		return decision;
 	}
 
 	/*
@@ -116,6 +145,10 @@ while(potato) {
 		}
 	}
 
+	/*
+	 * Checks to see whether a call is legitimate or not.
+	 *
+	 */
 	protected void checkCall() {
 		int[] all_dice = dice.getAllDice();
 		int quantity = 0;

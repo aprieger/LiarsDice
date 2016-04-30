@@ -30,6 +30,7 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.io.IOException;
 
 /**
  * Title: GameFrame
@@ -76,8 +77,9 @@ public class ClientFrame extends JFrame {
 
 	/**
 	 * Client constructor.
+	 * @throws IOException
 	 */
-	public ClientFrame() {
+	public ClientFrame() throws IOException {
 		setTitle("Liar's Dice -- Group 4, CSE360");
 		getContentPane().setLayout(new CardLayout(0, 0));
 
@@ -119,6 +121,7 @@ public class ClientFrame extends JFrame {
 				// TODO move to playerSelect
 				CardLayout cardLayoutTemp = (CardLayout) getContentPane().getLayout();
 				cardLayoutTemp.show(getContentPane(), "playerSelect");
+				mainFile = new fileIO();
 			}
 		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
@@ -207,6 +210,7 @@ public class ClientFrame extends JFrame {
 				// TODO choose player object from linked list
 				// TODO instantiate game after player object creation
 				CardLayout tempcl = (CardLayout) getContentPane().getLayout();
+				game = new Game(new Player());
 				tempcl.show(getContentPane(), "gameInstance");
 			}
 		});
@@ -245,8 +249,8 @@ public class ClientFrame extends JFrame {
 		});
 		GridBagConstraints gbc_btnStart2 = new GridBagConstraints();
 		gbc_btnStart2.insets = new Insets(0, 0, 5, 0);
-		gbc_btnStart2.gridx = 2;
-		gbc_btnStart2.gridy = 4;
+		gbc_btnStart2.gridx = 1;
+		gbc_btnStart2.gridy = 3;
 		playerSelect.add(btnStart2, gbc_btnStart2);
 
 		JPanel gameInstance = new JPanel();
@@ -334,7 +338,7 @@ public class ClientFrame extends JFrame {
 		gbc_lblPlayer.gridy = 6;
 		gameInstance.add(lblPlayer, gbc_lblPlayer);
 
-		JComboBox comboBox_1 = new JComboBox(); // TODO this needs to either
+		final JComboBox comboBox_1 = new JComboBox(); // TODO this needs to either
 												// have less bids as bids get
 												// higher or it needs to show an
 												// error message if your bid is
@@ -357,6 +361,7 @@ public class ClientFrame extends JFrame {
 		btnCall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				game.getPlayerAction(game.storePlayerAction(comboBox_1.getSelectedItem().toString()));
 				// TODO throws special case in game that ends bidding loop and
 				// judges the dice if call is selected in comboBox
 				// TODO needs to start the bidding loop again from scratch if
