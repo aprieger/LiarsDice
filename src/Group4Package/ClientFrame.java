@@ -29,7 +29,7 @@ import java.awt.CardLayout;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import java.util.Scanner;
-import java.util.Arrays
+import java.util.Arrays;
 
 /**
  * Title: GameFrame
@@ -46,7 +46,7 @@ public class ClientFrame extends JFrame {
 	protected String currentPlayerName;
 	private fileIO mainFile;
 	private LinkedList newList;
-	
+
 	protected JLabel lblNoPlayerSelected;
 
 	/**
