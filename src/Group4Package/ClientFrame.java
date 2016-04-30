@@ -399,7 +399,11 @@ public class ClientFrame extends JFrame {
 		gbl_leaderboards.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		leaderboards.setLayout(gbl_leaderboards);
 
-		JList list = new JList();
+		newList = new LinkedList();
+		newList = mainFile.LLStart();
+		Leaderboard newBoard = new Leaderboard();
+		
+		JList list = new JList(newBoard.generate(newList.root));
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.insets = new Insets(0, 0, 5, 5);
 		gbc_list.fill = GridBagConstraints.BOTH;
