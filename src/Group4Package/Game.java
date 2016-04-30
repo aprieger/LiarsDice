@@ -77,6 +77,7 @@ while(potato) {
 	 * Creates an AIDecision object from the GUI's ComboBox selection.
 	 *
 	 * @param The ComboBox value representing the player's choice.
+	 * @return An AIDecision representing the player's choice.
 	 */
 	public AIDecision storePlayerAction(String choice) {
 		AIDecision decision = new AIDecision();
@@ -90,6 +91,20 @@ while(potato) {
 			decision.call = false;
 		}
 		return decision;
+	}
+
+	/*
+	 * Creates a GUI string based on the opponent's last move.
+	 *
+	 * @return String value to be passed to GUI
+	 */
+	public String getOpponentMove() {
+		if(!current_bet.call) {
+			return "Calling bluff";
+		}
+		else {
+			return ""+decision.dice_num+" rolls of "+decision.dice_face;
+		}
 	}
 
 	/*

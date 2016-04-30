@@ -272,7 +272,7 @@ public class ClientFrame extends JFrame {
 		gbc_lblComputer.gridy = 0;
 		gameInstance.add(lblComputer, gbc_lblComputer);
 
-		JTextPane textPane = new JTextPane();
+		final JTextPane textPane = new JTextPane();
 		GridBagConstraints gbc_textPane = new GridBagConstraints();
 		gbc_textPane.insets = new Insets(0, 0, 5, 5);
 		gbc_textPane.fill = GridBagConstraints.BOTH;
@@ -288,7 +288,7 @@ public class ClientFrame extends JFrame {
 		gbc_lblCpuBid.gridy = 1;
 		gameInstance.add(lblCpuBid, gbc_lblCpuBid);
 
-		JTextPane textPane_2 = new JTextPane();
+		final JTextPane textPane_2 = new JTextPane();
 		GridBagConstraints gbc_textPane_2 = new GridBagConstraints();
 		gbc_textPane_2.insets = new Insets(0, 0, 5, 5);
 		gbc_textPane_2.fill = GridBagConstraints.BOTH;
@@ -362,6 +362,11 @@ public class ClientFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				game.getPlayerAction(game.storePlayerAction(comboBox_1.getSelectedItem().toString()));
+				comboBox_1 = new JComboBox(game.getPossibleActions());
+				textPane.setText(game.getOpponentDiceNum());
+				textPane_2.setText(game.getOpponentMove());
+				//PUT DICE GRAPHICS here
+				
 				// TODO throws special case in game that ends bidding loop and
 				// judges the dice if call is selected in comboBox
 				// TODO needs to start the bidding loop again from scratch if
