@@ -144,7 +144,6 @@ public class fileIO
 	        	}
 	        	delimLine.close();
 			}
-		}
 		readBuffer.close();
 		
 		// clear all data from the playerData text file
@@ -158,5 +157,6 @@ public class fileIO
 		//store the value of fileContents into "playerdata.txt"
 		saveFile.println(fileContents);
 		saveFile.close();
+		}
 	}
 }
